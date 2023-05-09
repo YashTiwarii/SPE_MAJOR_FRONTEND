@@ -26,7 +26,7 @@ export const ViewWorkout = () => {
         alert(`${e}` + " stars given");
         try {
             const response = await axios.put(
-              "http://localhost:3001/workouts/rate",{
+              "workouts/rate",{
               workoutID : workoutID,
                 userID: userID,
                 rating: e
@@ -50,7 +50,7 @@ export const ViewWorkout = () => {
                 comment: comment,
               };
               const response = await axios.put(
-                "http://localhost:3001/workouts/comment",
+                "workouts/comment",
                 cmt
               );
               const comments = [
@@ -75,7 +75,7 @@ export const ViewWorkout = () => {
         const fetchWorkout = async () => {
           try {
             const response = await axios.get(
-              `http://localhost:3001/workouts/get-workout/${workoutID}`
+              `/workouts/get-workout/${workoutID}`
             );
             console.log(response.data);
             setWorkout(response.data);

@@ -22,7 +22,7 @@ export const Home = () => {
     useEffect(() => {
         const fetchWorkout = async() => {
             try {
-              const response=  await axios.get("http://localhost:3001/workouts")
+              const response=  await axios.get("/workouts")
               const ratedWorkouts = response.data.map((workout) => {
                const ratings = workout.ratings.map((r) => r.rating);
                const avgRating =
@@ -43,7 +43,7 @@ export const Home = () => {
         const fetchSavedWorkouts = async() => {
             try {
               const response=  await axios.get(
-                `http://localhost:3001/workouts/savedWorkouts/ids/${userID}`
+                `/workouts/savedWorkouts/ids/${userID}`
                 );
               
               
@@ -61,7 +61,7 @@ export const Home = () => {
 
 const saveWorkout= async(workoutID)=>{
     try {
-        const response=  await axios.put("http://localhost:3001/workouts",{workoutID,userID},{headers:{authorization : cookies.access_token}});
+        const response=  await axios.put("/workouts",{workoutID,userID},{headers:{authorization : cookies.access_token}});
           
           setSavedWorkouts(response.data.savedWorkouts);
           

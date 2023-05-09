@@ -55,7 +55,7 @@ export const CreateWorkout = () => {
       const handleSubmit= async(event) =>{
         event.preventDefault();
         try {
-            await axios.post("http://localhost:3001/workouts", {...workout},{headers :{authorization: cookies.access_token}})
+            await axios.post("/workouts", {...workout},{headers :{authorization: cookies.access_token}})
             alert("Workout Created");
             navigate("/");
         } catch (err) {

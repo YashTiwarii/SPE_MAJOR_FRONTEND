@@ -11,7 +11,7 @@ export const SavedWorkouts = () => {
 
     const removeWorkout = async (workout) => {
         try {
-            const response = await axios.delete("http://localhost:3001/workouts",{
+            const response = await axios.delete("/workouts",{
                 data :{
                     workoutID:workout._id,
                     userID: userID,
@@ -32,7 +32,7 @@ export const SavedWorkouts = () => {
        
       const fetchSavedWorkout = async() => {
             try {
-              const response=  await axios.get(`http://localhost:3001/workouts/savedWorkouts/${userID}`);
+              const response=  await axios.get(`/workouts/savedWorkouts/${userID}`);
               setSavedWorkouts(response.data.savedWorkouts);  
               console.log(response.data);
                 
