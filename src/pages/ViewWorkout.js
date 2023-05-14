@@ -4,7 +4,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import ReactStars from "react-rating-stars-component";
 import { BsFillStarFill } from "react-icons/bs";
-
+import { useCookies } from "react-cookie";
 
 
 export const ViewWorkout = () => {
@@ -16,7 +16,7 @@ export const ViewWorkout = () => {
     const [workout,setWorkout] = useState([]);
     const [comment,setComment] = useState("");
     const [star ,setStar] = useState(0);
-   
+    const [cookies, _] = useCookies(["access_token"]);
     
       
 
@@ -31,7 +31,11 @@ export const ViewWorkout = () => {
                 userID: userID,
                 rating: e
 
-            });
+            },
+            {
+              headers: { authorization: cookies.access_token },
+            }
+            );
         } catch (err) {
             console.error(err);
         }
@@ -51,7 +55,10 @@ export const ViewWorkout = () => {
               };
               const response = await axios.put(
                 "workouts/comment",
-                cmt
+                cmt,
+                {
+                  headers: { authorization: cookies.access_token },
+                }
               );
               const comments = [
                 ...workout.comments,
@@ -107,7 +114,8 @@ export const ViewWorkout = () => {
         <div>
           
           <h1>Workout</h1>
-          <ul>
+          
+          <ul >
             <li key={workout._id}>
               <div>
                 <h2>{workout.name}</h2>
@@ -123,7 +131,7 @@ export const ViewWorkout = () => {
                 <h4>Description</h4>
                 <p>{workout.description}</p>
               </div>
-              {/* <img src={workout.imageUrl} alt={workout.name} /> */}
+              <img src={workout.imageUrl} alt={workout.name} />
               <h4>Exercises</h4>
         <ul>
           {workout && workout.exercises &&
@@ -135,7 +143,6 @@ export const ViewWorkout = () => {
             </li>
           ))}
         </ul> 
-             
                
               <h4>Comments</h4>
               {workout.comments &&
@@ -180,6 +187,8 @@ export const ViewWorkout = () => {
             </li>
           </ul>
         </div>
+
+        
       );
     };
     
